@@ -1,0 +1,112 @@
+//LED Lights
+#define red 13
+#define yellow 12
+#define green 11
+#define red2 10
+#define yellow2 9
+#define green2 8
+#define red3 7
+#define yellow3 6
+#define green3 5
+#define red4 4
+#define yellow4 3
+#define green4 2
+
+int count = 0;                                          
+char input[13];                                        
+boolean flag = 0;     
+long time1,time2;
+void setup() {
+  // put your setup code here, to run once:
+ Serial.begin(9600);
+ pinMode(red,OUTPUT);
+ pinMode(green,OUTPUT);
+ pinMode(yellow,OUTPUT);
+ pinMode(red2,OUTPUT);
+ pinMode(green2,OUTPUT);
+ pinMode(yellow2,OUTPUT);
+ pinMode(red3,OUTPUT);
+ pinMode(green3,OUTPUT);
+ pinMode(yellow3,OUTPUT);
+ pinMode(red4,OUTPUT);
+ pinMode(green4,OUTPUT);
+ pinMode(yellow4,OUTPUT);
+ time1 = millis();  
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  time2 = millis();
+  if((time2 - time1) < 5000)
+  {
+    Serial.println("Red");
+    digitalWrite(red,HIGH);
+    digitalWrite(yellow,LOW);
+    digitalWrite(green,LOW);
+    digitalWrite(red2,LOW);
+    digitalWrite(green2,HIGH);
+    digitalWrite(red3,HIGH);   
+    digitalWrite(red4,HIGH);
+  }
+  else if((time2 - time1) < 10000)
+  {
+    Serial.println("Yellow");
+    digitalWrite(red,LOW);
+    digitalWrite(yellow,HIGH);
+    digitalWrite(green,LOW);
+    digitalWrite(red2,HIGH);
+    digitalWrite(red3,HIGH);   
+    digitalWrite(red4,HIGH);
+  }
+  else if((time2 - time1) < 15000) // In milliseconds
+  {
+    Serial.println("Green");
+    digitalWrite(red,LOW);
+    digitalWrite(yellow,LOW);
+    digitalWrite(green,HIGH);
+    digitalWrite(red2,HIGH);
+    digitalWrite(red3,HIGH);   
+    digitalWrite(red4,HIGH);
+  }
+  else
+  {
+    time1 = millis();
+  }
+if (Serial.available())
+  {
+    count = 0;
+    while (Serial.available() && count < 13)         
+    {
+      input[count] = Serial.read();
+      count++;
+      delay(5); // In milliseconds
+    }
+    Serial.println(input);
+
+   if (strcmp(input, "11002C33858B") == 0) 
+    {
+        Serial.println("Card detected"); 
+        Serial.println("Green");
+        digitalWrite(red,LOW);
+        digitalWrite(yellow,LOW);
+        digitalWrite(green,HIGH);
+        digitalWrite(red2,HIGH);
+        digitalWrite(red3,HIGH);   
+        digitalWrite(red4,HIGH);
+        delay(5000);     // Delay for 5 seconds
+        time1 += 5000;
+    }
+   else if (strcmp(input, "11002CC355AB") == 0) 
+    {
+        Serial.println("Card detected"); 
+        Serial.println("Green");
+        digitalWrite(red,LOW);
+        digitalWrite(yellow,LOW);
+        digitalWrite(green,HIGH);
+        digitalWrite(red2,HIGH);
+        digitalWrite(red3,HIGH);   
+        digitalWrite(red4,HIGH);
+        delay(5000);    // Delay for 5 seconds
+        time1 += 5000;
+    }
+}}
